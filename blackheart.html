@@ -83,12 +83,6 @@ nav.scrolled {
 .nav-links a.active-nav::after {
   transform: scaleX(1);
 }
-nav.scrolled .nav-links {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: all 0.4s ease;
-}
 .nav-logo img { height: 50px; width: auto; display: block; }
 .nav-links { display: flex; gap: 2.5rem; list-style: none; transition: all 0.4s ease; }
 .nav-links a {
@@ -598,6 +592,7 @@ footer {
   .nav-links { display: none; }
   .hamburger { display: flex; }
   section { padding: 5rem 2rem; }
+  #hero { min-height: 620px; }
   #contact-cta { padding: 5rem 2rem; }
   .about-grid, .music-layout { grid-template-columns: 1fr; gap: 3rem; }
   .video-grid { grid-template-columns: 1fr; }
@@ -608,7 +603,11 @@ footer {
 
 @media (max-width: 600px) {
   .members-grid { grid-template-columns: 1fr; }
-  .about-stats { gap: 2rem; }
+  .about-stats { gap: 1.25rem; justify-content: space-between; }
+  .stat-num { font-size: 2.75rem; }
+  .music-layout { margin-top: 3rem; }
+  .audio-player { padding: 1.5rem; }
+  .event-item { padding: 1.75rem 0; }
 }
 
 /* ─── HERO CONTENT ─── */
@@ -618,7 +617,7 @@ footer {
   align-items: center; justify-content: center;
   text-align: center;
   padding: 0 2rem;
-  animation: heroReveal 1.2s 2.6s ease both;
+  animation: heroReveal 1.2s 1.35s ease both;
 }
 @keyframes heroReveal { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
 
@@ -691,6 +690,20 @@ footer {
 }
 .hero-btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.07); transform: translateY(-2px); }
 
+:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 .hero-subtext {
   font-size: 0.68rem; letter-spacing: 0.45em; text-transform: uppercase;
   color: rgba(255,255,255,0.3);
@@ -740,7 +753,7 @@ footer {
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
-  <div class="hamburger" id="hamburger">
+  <div class="hamburger" id="hamburger" role="button" tabindex="0" aria-label="Open navigation menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </div>
 </nav>
@@ -1058,7 +1071,11 @@ document.getElementById('hamburger').addEventListener('click', function() {
       top: '70px', left: '0', right: '0', background: 'rgba(0,0,0,0.97)',
       padding: '2rem', gap: '1.5rem', zIndex: '999'
     });
+    document.getElementById('hamburger').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
   }
+  this.setAttribute('aria-expanded', String(!isOpen));
 });
 
 document.querySelectorAll('.nav-links a').forEach(link => {

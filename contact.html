@@ -97,6 +97,11 @@ nav.scrolled {
 .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+.nav-links.mobile-open a { padding: 0.25rem 0; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
 
 /* ─── HERO HEADER ─── */
 .contact-hero {
@@ -598,7 +603,7 @@ footer {
 <li><a href="gallery.html">Gallery</a></li>
 <li><a href="contact.html" class="active">Contact</a></li>
   </ul>
-  <div class="hamburger" id="hamburger">
+  <div class="hamburger" id="hamburger" role="button" tabindex="0" aria-label="Open navigation menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </div>
 </nav>
@@ -824,7 +829,17 @@ hamburger.addEventListener('click', function () {
       padding: '2rem', gap: '1.5rem', zIndex: '999',
       borderBottom: '1px solid rgba(255,255,255,0.08)'
     });
+    hamburger.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.remove('mobile-open');
+      document.querySelector('.nav-links').removeAttribute('style');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }));
   }
+  this.setAttribute('aria-expanded', String(!isOpen));
 });
 
 // ─── SCROLL REVEAL ───

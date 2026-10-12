@@ -56,6 +56,11 @@ nav {
 .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
 .hamburger span { display: block; width: 24px; height: 1px; background: #fff; transition: all 0.3s; }
+.nav-links.mobile-open a { padding: 0.25rem 0; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
 
 /* ─── HERO ─── */
 .gallery-hero {
@@ -338,7 +343,7 @@ footer {
     <li><a href="gallery.html" class="active">Gallery</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
-  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  <div class="hamburger" id="hamburger" role="button" tabindex="0" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- HERO -->
@@ -602,7 +607,17 @@ document.getElementById('hamburger').addEventListener('click', function() {
       top:'70px', left:'0', right:'0', background:'rgba(0,0,0,0.97)',
       padding:'2rem', gap:'1.5rem', zIndex:'999', borderBottom:'1px solid rgba(255,255,255,0.08)'
     });
+    document.getElementById('hamburger').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', () => {
+      const links = document.querySelector('.nav-links');
+      links.classList.remove('mobile-open');
+      links.removeAttribute('style');
+      document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+    }));
   }
+  this.setAttribute('aria-expanded', String(!isOpen));
 });
 
 // SCROLL REVEAL
