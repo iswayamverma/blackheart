@@ -602,7 +602,10 @@ footer {
 }
 
 @media (max-width: 600px) {
-  .members-grid { grid-template-columns: 1fr; }
+  .members-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 180px);
+  }
   .about-stats { gap: 1.25rem; justify-content: space-between; }
   .stat-num { font-size: 2.75rem; }
   .music-layout { margin-top: 3rem; }
@@ -901,8 +904,8 @@ footer {
         <img src="https://res.cloudinary.com/dnamu1f9w/image/upload/q_auto,f_auto,w_600/newBandPicture_bkbcte.jpg" alt="Now Playing" id="playerArt">
         <div class="player-art-overlay"></div>
       </div>
-      <div class="player-track-name" id="playerName">Dark Frequency</div>
-      <div class="player-track-sub" id="playerSub">Black Heart · 2024</div>
+      <div class="player-track-name" id="playerName">Tum Hi Ho</div>
+      <div class="player-track-sub" id="playerSub">Arijit Singh · Aashiqui 2</div>
       <div class="progress-wrap" id="progressWrap">
         <div class="progress-bg"></div>
         <div class="progress-fill" id="progressFill"></div>
@@ -1099,12 +1102,12 @@ revealEls.forEach(el => observer.observe(el));
 
 // TRACKS
 const tracks = [
-  { name: 'Dark Frequency', meta: 'Black Heart · 2024', dur: '3:58' },
-  { name: 'Shattered Glass', meta: 'Black Heart · 2024', dur: '4:22' },
-  { name: 'Hollow Throne', meta: 'Black Heart · 2023', dur: '5:01' },
-  { name: 'Red Signal', meta: 'Black Heart · 2023', dur: '3:47' },
-  { name: 'Midnight Anthem', meta: 'Black Heart · 2022', dur: '4:15' },
-  { name: 'Soul of the Storm', meta: 'Black Heart · 2022', dur: '4:38' },
+  { name: 'Tum Hi Ho', meta: 'Arijit Singh · Aashiqui 2', dur: '4:22' },
+  { name: 'Channa Mereya', meta: 'Arijit Singh · Ae Dil Hai Mushkil', dur: '4:49' },
+  { name: 'Kesariya', meta: 'Arijit Singh · Brahmāstra', dur: '4:28' },
+  { name: 'Kaise Hua', meta: 'Vishal Mishra · Kabir Singh', dur: '3:54' },
+  { name: 'Jeena Jeena', meta: 'Atif Aslam · Badlapur', dur: '3:48' },
+  { name: 'Tera Hone Laga Hoon', meta: 'Atif Aslam · Ajab Prem Ki Ghazab Kahani', dur: '4:55' },
 ];
 let activeTrack = 0;
 let isPlaying = false;
